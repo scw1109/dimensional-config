@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.scw1109</groupId>
     <artifactId>dimensional-config</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
     <name>dimensional-config</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
+    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>
+    <developers>
+        <developer>
+            <id>scw1109</id>
+            <name>Alan She</name>
+            <email>scw1109@gmail.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/license/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https//github.com/scw1109/dimensional-config.git</connection>
+        <developerConnection>scm:git::git@github.com:scw1109/dimensional-config.git</developerConnection>
+        <url>https://github.com/scw1109/dimensional-config</url>
+    </scm>
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/scw1109/dimensional-config</url>
+    </ciManagement>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/scw1109/dimensional-config/issues</url>
+    </issueManagement>
     <repositories>
         <repository>
             <id>jitpack.io</id>
@@ -23,7 +51,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.6.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
