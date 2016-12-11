@@ -33,12 +33,11 @@ public class DefinedDimensions {
     @SuppressWarnings("unused")
     public void setAvailableDimensions(Map<String, Object> availableDimensions) {
         this.availableDimensions = new HashMap<>(availableDimensions.size());
-        for (String key : availableDimensions.keySet()) {
-            Object value = availableDimensions.get(key);
-            if (value instanceof List) {
+        for (Map.Entry<String, Object> entry : availableDimensions.entrySet()) {
+            if (entry.getValue() instanceof List) {
                 @SuppressWarnings("unchecked")
-                List<String> list = (List<String>) value;
-                this.availableDimensions.put(key, list);
+                List<String> list = (List<String>) entry.getValue();
+                this.availableDimensions.put(entry.getKey(), list);
             }
         }
     }

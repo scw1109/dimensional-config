@@ -48,24 +48,24 @@ public class DimensionalConfig {
     }
 
     private List<DimensionItem> collectDimensionItems(List<String> keysWithDimensionPrefix) {
-        List<DimensionItem> dimensionItems = keysWithDimensionPrefix.stream()
+        List<DimensionItem> items = keysWithDimensionPrefix.stream()
                 .distinct()
                 .map(this::parseDimension)
                 .collect(Collectors.toList());
 
         Comparator<DimensionItem> rankItem = Comparator.comparingInt(DimensionItem::getRank);
-        dimensionItems.sort(rankItem.reversed());
-        return dimensionItems;
+        items.sort(rankItem.reversed());
+        return items;
     }
 
     private Config buildConfigWithoutDimension(ConfigObject configRoot, List<String> keysWithDimensionPrefix) {
-        ConfigObject configWithoutDimension = configRoot.withoutKey(DIMENSIONS);
+        ConfigObject config = configRoot.withoutKey(DIMENSIONS);
 
         for (String k : keysWithDimensionPrefix) {
-            configWithoutDimension = configWithoutDimension.withoutKey(k);
+            config = config.withoutKey(k);
         }
 
-        return configWithoutDimension.toConfig();
+        return config.toConfig();
     }
 
     public static DimensionalConfig buildFrom(Config originalConfig) {
