@@ -91,14 +91,14 @@ public class DimensionalConfig {
     private DimensionItem parseDimension(String pattern) {
         Map<String, String> dimensionMap = new HashMap<>(definedDimensions.getDimensionsCount());
 
-        pattern = pattern.substring(DIMENSION_PREFIX.length());
-        String[] pair = pattern.split(";");
+        String patternPhase = pattern.substring(DIMENSION_PREFIX.length());
+        String[] pair = patternPhase.split(";");
         for (String p : pair) {
             String[] keyValue = p.split("=");
             dimensionMap.put(keyValue[0], keyValue[1]);
         }
 
-        return new DimensionItem(pattern, buildIndex(dimensionMap));
+        return new DimensionItem(patternPhase, buildIndex(dimensionMap));
     }
 
     private int[] buildIndex(Map<String, String> map) {
