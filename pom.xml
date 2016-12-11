@@ -49,11 +49,5 @@
             <version>5.0.0-M3</version>
             <scope>test</scope>
         </dependency>
-        <!-- For jitpack.io -->
-        <dependency>
-            <groupId>com.github.scw1109</groupId>
-            <artifactId>dimensional-config</artifactId>
-            <version>-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>
