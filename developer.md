@@ -70,6 +70,10 @@ The JitPack project page should have a "How to" guide which is very simple, just
  1. To create a new release, follow the [instructions](https://github.com/blog/1547-release-your-software) to create a Github release.
     * JitPack will use Github "tag name" as the "version" of the artifact, 
     and automatically changes the version xml tag in ```pom.xml```. 
-    Hence, it should follow the naming convention like ```0.3``` or ```0.3.1```.
+    Hence, it should follow the naming convention like ```0.3```.
     * For Github "release title", convention is something like ```v0.3```.     
- 1. JitPack will then build a new release and published to JitPack repository.  
+ 1. JitPack will then build a new release and published to JitPack repository.
+ 1. Although the version in ```pom.xml``` does not directly impact the release step,
+ to make sure its easy to know what is the developing version, 
+ use the ```bump_version.sh``` (or manually) to increase the version to indicate the next release version.
+   

@@ -18,11 +18,9 @@
 
 Dimensional Config is a library based on [Typesafe config](https://typesafehub.github.io/config), adding dimensional ability to allow configuration resolve based on dimension.
 
-## Essential Information
-
 ### License
 
-The license is Apache 2.0, see LICENSE-2.0.txt
+The license is Apache 2.0, see [LICENSE-2.0.txt](LICENSE-2.0.txt)
 
 ## Using the Library
  

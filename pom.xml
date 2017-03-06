@@ -5,7 +5,7 @@
 
     <groupId>com.github.scw1109</groupId>
     <artifactId>dimensional-config</artifactId>
-    <version>0.2</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
     <name>dimensional-config</name>
     <properties>
