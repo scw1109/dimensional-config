@@ -24,16 +24,14 @@ Dimensional Config is a library based on [Typesafe config](https://typesafehub.g
 
 The license is Apache 2.0, see LICENSE-2.0.txt
 
-### Binary Releases
-
-### API docs
-
-### Build
-
 ## Using the Library
  
 Requires JDK 1.8 or higher.
 
 ### API Example
 
-### Longer Examples
+
+
+## Developer Guide
+
+See [developer.md](developer.md)
