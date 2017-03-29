@@ -3,13 +3,16 @@ package com.github.scw1109.config;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigObject;
+import com.typesafe.config.ConfigValue;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author scw1109
@@ -35,13 +38,15 @@ public class DimensionalConfig {
             definedDimensions = ConfigBeanFactory.create(dimensionConfig, DefinedDimensions.class);
 
             ConfigObject configRoot = originalConfig.root();
-            Map<String, Object> map = configRoot.unwrapped();
-            List<String> keysWithDimensionPrefix = map.keySet().stream()
-                    .filter(k -> k.contains(DIMENSION_PREFIX))
+
+            Set<Map.Entry<String, ConfigValue>> entry = originalConfig.entrySet();
+            List<String> keysWithDimension = entry.stream()
+                    .filter(e -> e.getKey().contains(DIMENSION_PREFIX))
+                    .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
 
-            this.dimensionItems = collectDimensionItems(keysWithDimensionPrefix);
-            this.configWithoutDimension = buildConfigWithoutDimension(configRoot, keysWithDimensionPrefix);
+            this.dimensionItems = collectDimensionItems(keysWithDimension);
+            this.configWithoutDimension = buildConfigWithoutDimension(originalConfig, keysWithDimension);
         } else {
             definedDimensions = DefinedDimensions.NO_DIMENSIONS_DEFINED;
         }
@@ -54,18 +59,19 @@ public class DimensionalConfig {
                 .collect(Collectors.toList());
 
         Comparator<DimensionItem> rankItem = Comparator.comparingInt(DimensionItem::getRank);
-        items.sort(rankItem.reversed());
+        items.sort(rankItem);
         return items;
     }
 
-    private Config buildConfigWithoutDimension(ConfigObject configRoot, List<String> keysWithDimensionPrefix) {
-        ConfigObject config = configRoot.withoutKey(DIMENSIONS);
+    private Config buildConfigWithoutDimension(Config config, List<String> keysWithDimension) {
+        Config newConfig = config.withoutPath(DIMENSIONS);
 
-        for (String k : keysWithDimensionPrefix) {
-            config = config.withoutKey(k);
+        for (String k : keysWithDimension) {
+            int end = k.indexOf("\"", k.indexOf(DIMENSION_PREFIX)) + 1;
+            newConfig = newConfig.withoutPath(k.substring(0, end));
         }
 
-        return config.toConfig();
+        return newConfig;
     }
 
     public static DimensionalConfig buildFrom(Config originalConfig) {
@@ -91,7 +97,9 @@ public class DimensionalConfig {
     private DimensionItem parseDimension(String pattern) {
         Map<String, String> dimensionMap = new HashMap<>(definedDimensions.getDimensionsCount());
 
-        String patternPhase = pattern.substring(DIMENSION_PREFIX.length());
+        int start = pattern.indexOf(DIMENSION_PREFIX);
+        int end = pattern.indexOf("\"", start);
+        String patternPhase = pattern.substring(start + DIMENSION_PREFIX.length(), end);
         String[] pair = patternPhase.split(";");
         for (String p : pair) {
             String[] keyValue = p.split("=");
